@@ -1,8 +1,6 @@
 # godot4-mediapipe
 
-web demo on itch https://luklev.itch.io/godot4-mediapipe, (after clicking "run game", the content is loading 20-30 sec)
-
-allow it to use webcam so it can detect the pos :)
+web demo on itch https://luklev.itch.io/godot4-mediapipe, (after clicking "run game", the content is loading 20-30 sec), allow it to use webcam so it can detect the pos :)
 
 Godot4 web vtuber concept using pose and face recognition with mediapipe
 

@@ -1,0 +1,12 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1689461049
+export_presets.cfg::TextFile::-1::1689460213::0::1::::<><>::
+icon.svg::CompressedTexture2D::3688122916046020902::1689419053::1689461050::1::::<><>::
+Image20230715190714.jpg::CompressedTexture2D::6578317371711084515::1689436949::1689461050::1::::<><>::
+Image20230715225729.png::CompressedTexture2D::5704525976054859010::1689439374::1689461050::1::::<><>::
+main.gd::GDScript::-1::1689457246::0::1::::<>Node<>::
+main.tscn::PackedScene::5786753596610185572::1689460901::0::1::::<><>::res://main.gd<>uid://c0yt6qp2w5rmx::::res://Image20230715190714.jpg<>uid://cnjkyebvkpmcw::::res://Image20230715225729.png
+::res://web/::1689461024
+index.apple-touch-icon.png::CompressedTexture2D::1220724734344289801::1689460213::1689461050::1::::<><>::
+index.icon.png::CompressedTexture2D::1664600591412078236::1689460213::1689461050::1::::<><>::
+index.png::CompressedTexture2D::6476208817607655377::1689460213::1689461050::1::::<><>::

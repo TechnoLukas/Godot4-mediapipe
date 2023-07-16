@@ -65,6 +65,9 @@ func pos(x,y):
 	var rpos = Vector2(x*window.size.x,(y)*window.size.y)
 	print(rpos)
 	return rpos
+	
+func rd(v):
+	return snappedf(v,0.001)
 
 func _init():
 	if OS.has_feature('web'):
@@ -89,7 +92,7 @@ func _ready():
 		# Third argument is optional userdata, it can be any variable.
 		console.log("-Ready-")
 		
-		for i in range(69):
+		for i in range(70):
 			var line = Line2D.new() # Create a new Sprite2D.
 			line.width=5
 			line.add_point(pos(0,0))
@@ -108,128 +111,187 @@ func _process(delta):
 		const Y=1
 		const Z=2
 		const V=3
-		label_p11.text = "p11: "+str(snappedf(p[11][X],0.01))+" "+str(snappedf(p[11][Y],0.01))+" "+str(snappedf(p[11][Z],0.01))+" "+str(snappedf(p[11][V],0.01))
-		label_p12.text = "p12: "+str(snappedf(p[12][X],0.01))+" "+str(snappedf(p[12][Y],0.01))+" "+str(snappedf(p[12][Z],0.01))+" "+str(snappedf(p[12][V],0.01))
+		label_p11.text = "p11: "+str(rd(p[11][X]))+" "+str(rd(p[11][Y]))+" "+str(rd(p[11][Z]))+" "+str(rd(p[11][V]))
+		label_p12.text = "p12: "+str(rd(p[12][X]))+" "+str(rd(p[12][Y]))+" "+str(rd(p[12][Z]))+" "+str(rd(p[12][V]))
 		
 		#0-6 head
 		
-		linelist[0].set_point_position(0,pos(snappedf(p[11][X],0.01),snappedf(p[11][Y],0.01)))
-		linelist[0].set_point_position(1,pos(snappedf(p[12][X],0.01),snappedf(p[12][Y],0.01)))
-		linelist[1].set_point_position(0,pos(snappedf(p[11][X],0.01),snappedf(p[11][Y],0.01)))
-		linelist[1].set_point_position(1,pos(snappedf(p[13][X],0.01),snappedf(p[13][Y],0.01)))
-		linelist[2].set_point_position(0,pos(snappedf(p[12][X],0.01),snappedf(p[12][Y],0.01)))
-		linelist[2].set_point_position(1,pos(snappedf(p[14][X],0.01),snappedf(p[14][Y],0.01)))
-		linelist[3].set_point_position(0,pos(snappedf(p[13][X],0.01),snappedf(p[13][Y],0.01)))
-		linelist[3].set_point_position(1,pos(snappedf(l[0][X],0.01),snappedf(l[0][Y],0.01)))
-		linelist[4].set_point_position(0,pos(snappedf(p[14][X],0.01),snappedf(p[14][Y],0.01)))
-		linelist[4].set_point_position(1,pos(snappedf(r[0][X],0.01),snappedf(r[0][Y],0.01)))
-		linelist[5].set_point_position(0,pos(snappedf(p[11][X],0.01),snappedf(p[11][Y],0.01)))
-		linelist[5].set_point_position(1,pos(snappedf(p[23][X],0.01),snappedf(p[23][Y],0.01)))
-		linelist[6].set_point_position(0,pos(snappedf(p[12][X],0.01),snappedf(p[12][Y],0.01)))
-		linelist[6].set_point_position(1,pos(snappedf(p[24][X],0.01),snappedf(p[24][Y],0.01)))
-		linelist[7].set_point_position(0,pos(snappedf(p[23][X],0.01),snappedf(p[23][Y],0.01)))
-		linelist[7].set_point_position(1,pos(snappedf(p[24][X],0.01),snappedf(p[24][Y],0.01)))
+		linelist[0].set_point_position(0,pos(rd(p[11][X]),rd(p[11][Y])))
+		linelist[0].set_point_position(1,pos(rd(p[12][X]),rd(p[12][Y])))
+		linelist[1].set_point_position(0,pos(rd(p[11][X]),rd(p[11][Y])))
+		linelist[1].set_point_position(1,pos(rd(p[13][X]),rd(p[13][Y])))
+		linelist[2].set_point_position(0,pos(rd(p[12][X]),rd(p[12][Y])))
+		linelist[2].set_point_position(1,pos(rd(p[14][X]),rd(p[14][Y])))
+		linelist[3].set_point_position(0,pos(rd(p[13][X]),rd(p[13][Y])))
+		linelist[3].set_point_position(1,pos(rd(l[0][X]),rd(l[0][Y])))
+		linelist[4].set_point_position(0,pos(rd(p[14][X]),rd(p[14][Y])))
+		linelist[4].set_point_position(1,pos(rd(r[0][X]),rd(r[0][Y])))
+		linelist[5].set_point_position(0,pos(rd(p[11][X]),rd(p[11][Y])))
+		linelist[5].set_point_position(1,pos(rd(p[23][X]),rd(p[23][Y])))
+		linelist[6].set_point_position(0,pos(rd(p[12][X]),rd(p[12][Y])))
+		linelist[6].set_point_position(1,pos(rd(p[24][X]),rd(p[24][Y])))
+		linelist[7].set_point_position(0,pos(rd(p[23][X]),rd(p[23][Y])))
+		linelist[7].set_point_position(1,pos(rd(p[24][X]),rd(p[24][Y])))
 		
 		### RIGHT HAND
 		## FINGER 1
-		linelist[8].set_point_position(0,pos(snappedf(r[0][X],0.01),snappedf(r[0][Y],0.01)))
-		linelist[8].set_point_position(1,pos(snappedf(r[1][X],0.01),snappedf(r[1][Y],0.01)))
-		linelist[9].set_point_position(0,pos(snappedf(r[1][X],0.01),snappedf(r[1][Y],0.01)))
-		linelist[9].set_point_position(1,pos(snappedf(r[2][X],0.01),snappedf(r[2][Y],0.01)))
-		linelist[10].set_point_position(0,pos(snappedf(r[2][X],0.01),snappedf(r[2][Y],0.01)))
-		linelist[10].set_point_position(1,pos(snappedf(r[3][X],0.01),snappedf(r[3][Y],0.01)))
-		linelist[11].set_point_position(0,pos(snappedf(r[3][X],0.01),snappedf(r[3][Y],0.01)))
-		linelist[11].set_point_position(1,pos(snappedf(r[4][X],0.01),snappedf(r[4][Y],0.01)))
+		linelist[8].set_point_position(0,pos(rd(r[0][X]),rd(r[0][Y])))
+		linelist[8].set_point_position(1,pos(rd(r[1][X]),rd(r[1][Y])))
+		linelist[9].set_point_position(0,pos(rd(r[1][X]),rd(r[1][Y])))
+		linelist[9].set_point_position(1,pos(rd(r[2][X]),rd(r[2][Y])))
+		linelist[10].set_point_position(0,pos(rd(r[2][X]),rd(r[2][Y])))
+		linelist[10].set_point_position(1,pos(rd(r[3][X]),rd(r[3][Y])))
+		linelist[11].set_point_position(0,pos(rd(r[3][X]),rd(r[3][Y])))
+		linelist[11].set_point_position(1,pos(rd(r[4][X]),rd(r[4][Y])))
 		## FINGER 2
-		linelist[12].set_point_position(0,pos(snappedf(r[0][X],0.01),snappedf(r[0][Y],0.01)))
-		linelist[12].set_point_position(1,pos(snappedf(r[5][X],0.01),snappedf(r[5][Y],0.01)))
-		linelist[13].set_point_position(0,pos(snappedf(r[5][X],0.01),snappedf(r[5][Y],0.01)))
-		linelist[13].set_point_position(1,pos(snappedf(r[6][X],0.01),snappedf(r[6][Y],0.01)))
-		linelist[14].set_point_position(0,pos(snappedf(r[6][X],0.01),snappedf(r[6][Y],0.01)))
-		linelist[14].set_point_position(1,pos(snappedf(r[7][X],0.01),snappedf(r[7][Y],0.01)))
-		linelist[15].set_point_position(0,pos(snappedf(r[7][X],0.01),snappedf(r[7][Y],0.01)))
-		linelist[15].set_point_position(1,pos(snappedf(r[8][X],0.01),snappedf(r[8][Y],0.01)))
+		linelist[12].set_point_position(0,pos(rd(r[0][X]),rd(r[0][Y])))
+		linelist[12].set_point_position(1,pos(rd(r[5][X]),rd(r[5][Y])))
+		linelist[13].set_point_position(0,pos(rd(r[5][X]),rd(r[5][Y])))
+		linelist[13].set_point_position(1,pos(rd(r[6][X]),rd(r[6][Y])))
+		linelist[14].set_point_position(0,pos(rd(r[6][X]),rd(r[6][Y])))
+		linelist[14].set_point_position(1,pos(rd(r[7][X]),rd(r[7][Y])))
+		linelist[15].set_point_position(0,pos(rd(r[7][X]),rd(r[7][Y])))
+		linelist[15].set_point_position(1,pos(rd(r[8][X]),rd(r[8][Y])))
 		## FINGER 3
-		linelist[16].set_point_position(0,pos(snappedf(r[5][X],0.01),snappedf(r[5][Y],0.01)))
-		linelist[16].set_point_position(1,pos(snappedf(r[9][X],0.01),snappedf(r[9][Y],0.01)))
-		linelist[17].set_point_position(0,pos(snappedf(r[9][X],0.01),snappedf(r[9][Y],0.01)))
-		linelist[17].set_point_position(1,pos(snappedf(r[10][X],0.01),snappedf(r[10][Y],0.01)))
-		linelist[18].set_point_position(0,pos(snappedf(r[10][X],0.01),snappedf(r[10][Y],0.01)))
-		linelist[18].set_point_position(1,pos(snappedf(r[11][X],0.01),snappedf(r[11][Y],0.01)))
-		linelist[19].set_point_position(0,pos(snappedf(r[11][X],0.01),snappedf(r[11][Y],0.01)))
-		linelist[19].set_point_position(1,pos(snappedf(r[12][X],0.01),snappedf(r[12][Y],0.01)))
+		linelist[16].set_point_position(0,pos(rd(r[5][X]),rd(r[5][Y])))
+		linelist[16].set_point_position(1,pos(rd(r[9][X]),rd(r[9][Y])))
+		linelist[17].set_point_position(0,pos(rd(r[9][X]),rd(r[9][Y])))
+		linelist[17].set_point_position(1,pos(rd(r[10][X]),rd(r[10][Y])))
+		linelist[18].set_point_position(0,pos(rd(r[10][X]),rd(r[10][Y])))
+		linelist[18].set_point_position(1,pos(rd(r[11][X]),rd(r[11][Y])))
+		linelist[19].set_point_position(0,pos(rd(r[11][X]),rd(r[11][Y])))
+		linelist[19].set_point_position(1,pos(rd(r[12][X]),rd(r[12][Y])))
 		## FINGER 4
-		linelist[20].set_point_position(0,pos(snappedf(r[9][X],0.01),snappedf(r[9][Y],0.01)))
-		linelist[20].set_point_position(1,pos(snappedf(r[13][X],0.01),snappedf(r[13][Y],0.01)))
-		linelist[21].set_point_position(0,pos(snappedf(r[13][X],0.01),snappedf(r[13][Y],0.01)))
-		linelist[21].set_point_position(1,pos(snappedf(r[14][X],0.01),snappedf(r[14][Y],0.01)))
-		linelist[22].set_point_position(0,pos(snappedf(r[14][X],0.01),snappedf(r[14][Y],0.01)))
-		linelist[22].set_point_position(1,pos(snappedf(r[15][X],0.01),snappedf(r[15][Y],0.01)))
-		linelist[23].set_point_position(0,pos(snappedf(r[15][X],0.01),snappedf(r[15][Y],0.01)))
-		linelist[23].set_point_position(1,pos(snappedf(r[16][X],0.01),snappedf(r[16][Y],0.01)))
+		linelist[20].set_point_position(0,pos(rd(r[9][X]),rd(r[9][Y])))
+		linelist[20].set_point_position(1,pos(rd(r[13][X]),rd(r[13][Y])))
+		linelist[21].set_point_position(0,pos(rd(r[13][X]),rd(r[13][Y])))
+		linelist[21].set_point_position(1,pos(rd(r[14][X]),rd(r[14][Y])))
+		linelist[22].set_point_position(0,pos(rd(r[14][X]),rd(r[14][Y])))
+		linelist[22].set_point_position(1,pos(rd(r[15][X]),rd(r[15][Y])))
+		linelist[23].set_point_position(0,pos(rd(r[15][X]),rd(r[15][Y])))
+		linelist[23].set_point_position(1,pos(rd(r[16][X]),rd(r[16][Y])))
 		## FINGER 5
-		linelist[24].set_point_position(0,pos(snappedf(r[13][X],0.01),snappedf(r[13][Y],0.01)))
-		linelist[24].set_point_position(1,pos(snappedf(r[17][X],0.01),snappedf(r[17][Y],0.01)))
-		linelist[25].set_point_position(0,pos(snappedf(r[17][X],0.01),snappedf(r[17][Y],0.01)))
-		linelist[25].set_point_position(1,pos(snappedf(r[18][X],0.01),snappedf(r[18][Y],0.01)))
-		linelist[26].set_point_position(0,pos(snappedf(r[18][X],0.01),snappedf(r[18][Y],0.01)))
-		linelist[26].set_point_position(1,pos(snappedf(r[19][X],0.01),snappedf(r[19][Y],0.01)))
-		linelist[27].set_point_position(0,pos(snappedf(r[19][X],0.01),snappedf(r[19][Y],0.01)))
-		linelist[27].set_point_position(1,pos(snappedf(r[20][X],0.01),snappedf(r[20][Y],0.01)))
-		linelist[28].set_point_position(0,pos(snappedf(r[17][X],0.01),snappedf(r[17][Y],0.01)))
-		linelist[28].set_point_position(1,pos(snappedf(r[0][X],0.01),snappedf(r[0][Y],0.01)))
+		linelist[24].set_point_position(0,pos(rd(r[13][X]),rd(r[13][Y])))
+		linelist[24].set_point_position(1,pos(rd(r[17][X]),rd(r[17][Y])))
+		linelist[25].set_point_position(0,pos(rd(r[17][X]),rd(r[17][Y])))
+		linelist[25].set_point_position(1,pos(rd(r[18][X]),rd(r[18][Y])))
+		linelist[26].set_point_position(0,pos(rd(r[18][X]),rd(r[18][Y])))
+		linelist[26].set_point_position(1,pos(rd(r[19][X]),rd(r[19][Y])))
+		linelist[27].set_point_position(0,pos(rd(r[19][X]),rd(r[19][Y])))
+		linelist[27].set_point_position(1,pos(rd(r[20][X]),rd(r[20][Y])))
+		linelist[28].set_point_position(0,pos(rd(r[17][X]),rd(r[17][Y])))
+		linelist[28].set_point_position(1,pos(rd(r[0][X]),rd(r[0][Y])))
 
-	### LEFT HAND
+		### LEFT HAND
 		## FINGER 1
-		linelist[29].set_point_position(0,pos(snappedf(l[0][X],0.01),snappedf(l[0][Y],0.01)))
-		linelist[29].set_point_position(1,pos(snappedf(l[1][X],0.01),snappedf(l[1][Y],0.01)))
-		linelist[30].set_point_position(0,pos(snappedf(l[1][X],0.01),snappedf(l[1][Y],0.01)))
-		linelist[30].set_point_position(1,pos(snappedf(l[2][X],0.01),snappedf(l[2][Y],0.01)))
-		linelist[31].set_point_position(0,pos(snappedf(l[2][X],0.01),snappedf(l[2][Y],0.01)))
-		linelist[31].set_point_position(1,pos(snappedf(l[3][X],0.01),snappedf(l[3][Y],0.01)))
-		linelist[32].set_point_position(0,pos(snappedf(l[3][X],0.01),snappedf(l[3][Y],0.01)))
-		linelist[32].set_point_position(1,pos(snappedf(l[4][X],0.01),snappedf(l[4][Y],0.01)))
+		linelist[29].set_point_position(0,pos(rd(l[0][X]),rd(l[0][Y])))
+		linelist[29].set_point_position(1,pos(rd(l[1][X]),rd(l[1][Y])))
+		linelist[30].set_point_position(0,pos(rd(l[1][X]),rd(l[1][Y])))
+		linelist[30].set_point_position(1,pos(rd(l[2][X]),rd(l[2][Y])))
+		linelist[31].set_point_position(0,pos(rd(l[2][X]),rd(l[2][Y])))
+		linelist[31].set_point_position(1,pos(rd(l[3][X]),rd(l[3][Y])))
+		linelist[32].set_point_position(0,pos(rd(l[3][X]),rd(l[3][Y])))
+		linelist[32].set_point_position(1,pos(rd(l[4][X]),rd(l[4][Y])))
 		## FINGER 2
-		linelist[34].set_point_position(0,pos(snappedf(l[0][X],0.01),snappedf(l[0][Y],0.01)))
-		linelist[34].set_point_position(1,pos(snappedf(l[5][X],0.01),snappedf(l[5][Y],0.01)))
-		linelist[35].set_point_position(0,pos(snappedf(l[5][X],0.01),snappedf(l[5][Y],0.01)))
-		linelist[35].set_point_position(1,pos(snappedf(l[6][X],0.01),snappedf(l[6][Y],0.01)))
-		linelist[36].set_point_position(0,pos(snappedf(l[6][X],0.01),snappedf(l[6][Y],0.01)))
-		linelist[36].set_point_position(1,pos(snappedf(l[7][X],0.01),snappedf(l[7][Y],0.01)))
-		linelist[37].set_point_position(0,pos(snappedf(l[7][X],0.01),snappedf(l[7][Y],0.01)))
-		linelist[37].set_point_position(1,pos(snappedf(l[8][X],0.01),snappedf(l[8][Y],0.01)))
+		linelist[34].set_point_position(0,pos(rd(l[0][X]),rd(l[0][Y])))
+		linelist[34].set_point_position(1,pos(rd(l[5][X]),rd(l[5][Y])))
+		linelist[35].set_point_position(0,pos(rd(l[5][X]),rd(l[5][Y])))
+		linelist[35].set_point_position(1,pos(rd(l[6][X]),rd(l[6][Y])))
+		linelist[36].set_point_position(0,pos(rd(l[6][X]),rd(l[6][Y])))
+		linelist[36].set_point_position(1,pos(rd(l[7][X]),rd(l[7][Y])))
+		linelist[37].set_point_position(0,pos(rd(l[7][X]),rd(l[7][Y])))
+		linelist[37].set_point_position(1,pos(rd(l[8][X]),rd(l[8][Y])))
 		## FINGER 3
-		linelist[38].set_point_position(0,pos(snappedf(l[5][X],0.01),snappedf(l[5][Y],0.01)))
-		linelist[38].set_point_position(1,pos(snappedf(l[9][X],0.01),snappedf(l[9][Y],0.01)))
-		linelist[39].set_point_position(0,pos(snappedf(l[9][X],0.01),snappedf(l[9][Y],0.01)))
-		linelist[39].set_point_position(1,pos(snappedf(l[10][X],0.01),snappedf(l[10][Y],0.01)))
-		linelist[40].set_point_position(0,pos(snappedf(l[10][X],0.01),snappedf(l[10][Y],0.01)))
-		linelist[40].set_point_position(1,pos(snappedf(l[11][X],0.01),snappedf(l[11][Y],0.01)))
-		linelist[41].set_point_position(0,pos(snappedf(l[11][X],0.01),snappedf(l[11][Y],0.01)))
-		linelist[41].set_point_position(1,pos(snappedf(l[12][X],0.01),snappedf(l[12][Y],0.01)))
+		linelist[38].set_point_position(0,pos(rd(l[5][X]),rd(l[5][Y])))
+		linelist[38].set_point_position(1,pos(rd(l[9][X]),rd(l[9][Y])))
+		linelist[39].set_point_position(0,pos(rd(l[9][X]),rd(l[9][Y])))
+		linelist[39].set_point_position(1,pos(rd(l[10][X]),rd(l[10][Y])))
+		linelist[40].set_point_position(0,pos(rd(l[10][X]),rd(l[10][Y])))
+		linelist[40].set_point_position(1,pos(rd(l[11][X]),rd(l[11][Y])))
+		linelist[41].set_point_position(0,pos(rd(l[11][X]),rd(l[11][Y])))
+		linelist[41].set_point_position(1,pos(rd(l[12][X]),rd(l[12][Y])))
 		## FINGER 4
-		linelist[42].set_point_position(0,pos(snappedf(l[9][X],0.01),snappedf(l[9][Y],0.01)))
-		linelist[42].set_point_position(1,pos(snappedf(l[13][X],0.01),snappedf(l[13][Y],0.01)))
-		linelist[43].set_point_position(0,pos(snappedf(l[13][X],0.01),snappedf(l[13][Y],0.01)))
-		linelist[43].set_point_position(1,pos(snappedf(l[14][X],0.01),snappedf(l[14][Y],0.01)))
-		linelist[44].set_point_position(0,pos(snappedf(l[14][X],0.01),snappedf(l[14][Y],0.01)))
-		linelist[44].set_point_position(1,pos(snappedf(l[15][X],0.01),snappedf(l[15][Y],0.01)))
-		linelist[45].set_point_position(0,pos(snappedf(l[15][X],0.01),snappedf(l[15][Y],0.01)))
-		linelist[45].set_point_position(1,pos(snappedf(l[16][X],0.01),snappedf(l[16][Y],0.01)))
+		linelist[42].set_point_position(0,pos(rd(l[9][X]),rd(l[9][Y])))
+		linelist[42].set_point_position(1,pos(rd(l[13][X]),rd(l[13][Y])))
+		linelist[43].set_point_position(0,pos(rd(l[13][X]),rd(l[13][Y])))
+		linelist[43].set_point_position(1,pos(rd(l[14][X]),rd(l[14][Y])))
+		linelist[44].set_point_position(0,pos(rd(l[14][X]),rd(l[14][Y])))
+		linelist[44].set_point_position(1,pos(rd(l[15][X]),rd(l[15][Y])))
+		linelist[45].set_point_position(0,pos(rd(l[15][X]),rd(l[15][Y])))
+		linelist[45].set_point_position(1,pos(rd(l[16][X]),rd(l[16][Y])))
 		## FINGER 5
-		linelist[46].set_point_position(0,pos(snappedf(l[13][X],0.01),snappedf(l[13][Y],0.01)))
-		linelist[46].set_point_position(1,pos(snappedf(l[17][X],0.01),snappedf(l[17][Y],0.01)))
-		linelist[47].set_point_position(0,pos(snappedf(l[17][X],0.01),snappedf(l[17][Y],0.01)))
-		linelist[47].set_point_position(1,pos(snappedf(l[18][X],0.01),snappedf(l[18][Y],0.01)))
-		linelist[48].set_point_position(0,pos(snappedf(l[18][X],0.01),snappedf(l[18][Y],0.01)))
-		linelist[48].set_point_position(1,pos(snappedf(l[19][X],0.01),snappedf(l[19][Y],0.01)))
-		linelist[49].set_point_position(0,pos(snappedf(l[19][X],0.01),snappedf(l[19][Y],0.01)))
-		linelist[49].set_point_position(1,pos(snappedf(l[20][X],0.01),snappedf(l[20][Y],0.01)))
-		linelist[50].set_point_position(0,pos(snappedf(l[17][X],0.01),snappedf(l[17][Y],0.01)))
-		linelist[50].set_point_position(1,pos(snappedf(l[0][X],0.01),snappedf(l[0][Y],0.01)))
-<<<<<<< Updated upstream
-	
-=======
+		linelist[46].set_point_position(0,pos(rd(l[13][X]),rd(l[13][Y])))
+		linelist[46].set_point_position(1,pos(rd(l[17][X]),rd(l[17][Y])))
+		linelist[47].set_point_position(0,pos(rd(l[17][X]),rd(l[17][Y])))
+		linelist[47].set_point_position(1,pos(rd(l[18][X]),rd(l[18][Y])))
+		linelist[48].set_point_position(0,pos(rd(l[18][X]),rd(l[18][Y])))
+		linelist[48].set_point_position(1,pos(rd(l[19][X]),rd(l[19][Y])))
+		linelist[49].set_point_position(0,pos(rd(l[19][X]),rd(l[19][Y])))
+		linelist[49].set_point_position(1,pos(rd(l[20][X]),rd(l[20][Y])))
+		linelist[50].set_point_position(0,pos(rd(l[17][X]),rd(l[17][Y])))
+		linelist[50].set_point_position(1,pos(rd(l[0][X]),rd(l[0][Y])))
+		
+		### FACE
+		## STROKE
+		linelist[51].set_point_position(0,pos(rd(f[152][X]),rd(f[152][Y])))
+		linelist[51].set_point_position(1,pos(rd(f[150][X]),rd(f[150][Y])))
+		linelist[52].set_point_position(0,pos(rd(f[150][X]),rd(f[150][Y])))
+		linelist[52].set_point_position(1,pos(rd(f[127][X]),rd(f[127][Y])))
+		linelist[53].set_point_position(0,pos(rd(f[127][X]),rd(f[127][Y])))
+		linelist[53].set_point_position(1,pos(rd(f[10][X]),rd(f[10][Y])))
+		linelist[54].set_point_position(0,pos(rd(f[10][X]),rd(f[10][Y])))
+		linelist[54].set_point_position(1,pos(rd(f[356][X]),rd(f[356][Y])))
+		linelist[55].set_point_position(0,pos(rd(f[356][X]),rd(f[356][Y])))
+		linelist[55].set_point_position(1,pos(rd(f[379][X]),rd(f[379][Y])))
+		linelist[56].set_point_position(0,pos(rd(f[379][X]),rd(f[379][Y])))
+		linelist[56].set_point_position(1,pos(rd(f[152][X]),rd(f[152][Y])))
 		
 		
->>>>>>> Stashed changes
+		## LIPS
+		linelist[57].width = 2
+		linelist[58].width = 2
+		linelist[59].width = 2
+		linelist[60].width = 2
+		linelist[57].set_point_position(0,pos(rd(f[78][X]),rd(f[78][Y])))
+		linelist[57].set_point_position(1,pos(rd(f[13][X]),rd(f[13][Y])))
+		linelist[58].set_point_position(0,pos(rd(f[13][X]),rd(f[13][Y])))
+		linelist[58].set_point_position(1,pos(rd(f[308][X]),rd(f[308][Y])))
+		linelist[59].set_point_position(0,pos(rd(f[308][X]),rd(f[308][Y])))
+		linelist[59].set_point_position(1,pos(rd(f[14][X]),rd(f[14][Y])))
+		linelist[60].set_point_position(0,pos(rd(f[14][X]),rd(f[14][Y])))
+		linelist[60].set_point_position(1,pos(rd(f[78][X]),rd(f[78][Y])))
+		
+		
+		## RIGHT EYE
+		linelist[61].width = 2
+		linelist[62].width = 2
+		linelist[63].width = 2
+		linelist[64].width = 2
+		linelist[61].set_point_position(0,pos(rd(f[33][X]),rd(f[33][Y])))
+		linelist[61].set_point_position(1,pos(rd(f[159][X]),rd(f[159][Y])))
+		linelist[62].set_point_position(0,pos(rd(f[159][X]),rd(f[159][Y])))
+		linelist[62].set_point_position(1,pos(rd(f[133][X]),rd(f[133][Y])))
+		linelist[63].set_point_position(0,pos(rd(f[133][X]),rd(f[133][Y])))
+		linelist[63].set_point_position(1,pos(rd(f[145][X]),rd(f[145][Y])))
+		linelist[64].set_point_position(0,pos(rd(f[145][X]),rd(f[145][Y])))
+		linelist[64].set_point_position(1,pos(rd(f[33][X]),rd(f[33][Y])))
+		
+		
+		## LEFT EYE
+		linelist[65].width = 2
+		linelist[66].width = 2
+		linelist[67].width = 2
+		linelist[68].width = 2
+		linelist[65].set_point_position(0,pos(rd(f[362][X]),rd(f[362][Y])))
+		linelist[65].set_point_position(1,pos(rd(f[386][X]),rd(f[386][Y])))
+		linelist[66].set_point_position(0,pos(rd(f[386][X]),rd(f[386][Y])))
+		linelist[66].set_point_position(1,pos(rd(f[263][X]),rd(f[263][Y])))
+		linelist[67].set_point_position(0,pos(rd(f[263][X]),rd(f[263][Y])))
+		linelist[67].set_point_position(1,pos(rd(f[374][X]),rd(f[374][Y])))
+		linelist[68].set_point_position(0,pos(rd(f[374][X]),rd(f[374][Y])))
+		linelist[68].set_point_position(1,pos(rd(f[362][X]),rd(f[362][Y])))
+		
+		## NOSE
+		linelist[69].set_point_position(0,pos(rd(f[4][X]),rd(f[4][Y])))
+		linelist[69].set_point_position(1,pos(rd(f[6][X]),rd(f[6][Y])))
+		

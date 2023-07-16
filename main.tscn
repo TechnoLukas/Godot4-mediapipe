@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cope8se1wl3sy"]
+[gd_scene load_steps=5 format=3 uid="uid://b62gevg67wdiq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_y2ade"]
-[ext_resource type="Texture2D" uid="uid://c0yt6qp2w5rmx" path="res://Image20230715190714.jpg" id="2_6joho"]
-[ext_resource type="Texture2D" uid="uid://cnjkyebvkpmcw" path="res://Image20230715225729.png" id="3_0cp0y"]
+[ext_resource type="Texture2D" uid="uid://cnjkyebvkpmcw" path="res://resources/images/Image20230715225729.png" id="2_155a5"]
+[ext_resource type="Texture2D" uid="uid://c0yt6qp2w5rmx" path="res://resources/images/Image20230715190714.jpg" id="2_doyx3"]
+[ext_resource type="Texture2D" uid="uid://dh2hva6pssyh4" path="res://resources/images/Image20230716134510.jpg" id="4_02ff4"]
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_y2ade")
@@ -46,10 +47,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -425.0
-offset_top = -627.0
-offset_right = -23.0
-offset_bottom = -400.0
+offset_left = -1143.0
+offset_top = -121.0
+offset_right = -741.0
+offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 color = Color(0.184314, 0.184314, 0.184314, 1)
@@ -109,33 +110,45 @@ offset_right = -23.0
 offset_bottom = -18.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("2_6joho")
+texture = ExtResource("2_doyx3")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="Screen/TextureRect"]
+[node name="TextureRect2" type="TextureRect" parent="Screen"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -402.0
-offset_top = -368.0
-offset_bottom = -228.0
+offset_left = -425.0
+offset_top = -386.0
+offset_right = -23.0
+offset_bottom = -246.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("3_0cp0y")
+texture = ExtResource("2_155a5")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Screen"]
+layout_mode = 0
+offset_left = 853.0
+offset_top = 21.0
+offset_right = 1032.0
+offset_bottom = 248.0
+texture = ExtResource("4_02ff4")
 expand_mode = 1
 
 [node name="window" type="ColorRect" parent="Screen"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 338.0
-offset_top = 127.0
-offset_right = -447.0
-offset_bottom = -111.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -856.0
+offset_top = -549.0
+offset_right = -439.0
+offset_bottom = -131.0
+grow_horizontal = 0
+grow_vertical = 0
 color = Color(0.117647, 0.117647, 0.117647, 1)

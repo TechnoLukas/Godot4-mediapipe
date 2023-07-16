@@ -11,7 +11,8 @@ web view
 <img width="661" alt="image" src="https://github.com/TechnoLukas/Godot4-mediapipe/assets/110934679/2b5509ff-8c2f-4bbd-acb6-d1f642c3c313">
 
 
-mediapipe js nased on https://github.com/LintangWisesa/MediaPipe-in-JavaScript
+mediapipe js based on https://github.com/LintangWisesa/MediaPipe-in-JavaScript
+
 
 **TODO:**
 - 3d lines

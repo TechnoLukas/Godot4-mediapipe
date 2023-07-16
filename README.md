@@ -10,3 +10,8 @@ web view
 
 <img width="661" alt="image" src="https://github.com/TechnoLukas/Godot4-mediapipe/assets/110934679/2b5509ff-8c2f-4bbd-acb6-d1f642c3c313">
 
+
+**TODO:**
+- 3d lines
+- show browser difference
+- visualize html file evolution and callbacks

@@ -11,34 +11,32 @@ var externalator = JavaScriptBridge.get_interface("externalator")
 var _js_cb_draw_pose_landmark = JavaScriptBridge.create_callback(cbDrawPoseLandmark)
 var _js_cb_draw_left_hand_landmark = JavaScriptBridge.create_callback(cbDrawLeftHandLandmark)
 var _js_cb_draw_right_hand_landmark = JavaScriptBridge.create_callback(cbDrawRightHandLandmark)
+var _js_cb_draw_face_landmark = JavaScriptBridge.create_callback(cbDrawFaceLandmark)
 
 #var linesLeftHand:Array
-var l=[[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.]]
-var llen=21
+var linelist=[]
+
+var llen=21# mediapipe constant
+var l = []
 
 #var linesRightHand:Array
-var r=[[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.]]
-var rlen=21
+var rlen=21# mediapipe constant
+var r = []
 
 #var linesPose:Array
-var p=[[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],#7
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],#14
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],#21
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],#28
-	[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,0.,0.]]#33
-var plen=33
+var plen=33# mediapipe constant
+var p = []
 
-var linelist = []
+#var linesFace:Array
+var flen=468# mediapipe constant
+var f = []
 
 func cbDrawPoseLandmark(args):
 	plen = args[1]
 	p.clear()
 	for i in range(args[1]):
 		p.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
+		
 
 func cbDrawRightHandLandmark(args):
 	rlen = args[1]
@@ -53,6 +51,15 @@ func cbDrawLeftHandLandmark(args):
 	for i in range(args[1]):
 		l.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
 	#print(l)
+		
+
+func cbDrawFaceLandmark(args):
+	flen = args[1]
+	f.clear()
+	for i in range(args[1]):
+		f.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
+	#print(f)
+	
 
 func pos(x,y):
 	var rpos = Vector2(x*window.size.x,(y)*window.size.y)
@@ -63,6 +70,14 @@ func _init():
 	if OS.has_feature('web'):
 		console.log("Console:Hello my HTML page")
 		print("Print:Hello my HTML page ")
+		for i in range(llen):
+			l.append([0.,0.,0.,0.])
+		for i in range(rlen):
+			r.append([0.,0.,0.,0.])
+		for i in range(plen):
+			p.append([0.,0.,0.,0.])
+		for i in range(flen):
+			f.append([0.,0.,0.,0.])
 
 func _ready():
 	if OS.has_feature('web'):
@@ -70,6 +85,7 @@ func _ready():
 		externalator.addGodotFunction('cbDrawPoseLandmark',_js_cb_draw_pose_landmark)
 		externalator.addGodotFunction('cbDrawLeftHandLandmark',_js_cb_draw_left_hand_landmark)
 		externalator.addGodotFunction('cbDrawRightHandLandmark',_js_cb_draw_right_hand_landmark)
+		externalator.addGodotFunction('cbDrawFaceLandmark',_js_cb_draw_face_landmark)
 		# Third argument is optional userdata, it can be any variable.
 		console.log("-Ready-")
 		
@@ -211,4 +227,9 @@ func _process(delta):
 		linelist[49].set_point_position(1,pos(snappedf(l[20][X],0.01),snappedf(l[20][Y],0.01)))
 		linelist[50].set_point_position(0,pos(snappedf(l[17][X],0.01),snappedf(l[17][Y],0.01)))
 		linelist[50].set_point_position(1,pos(snappedf(l[0][X],0.01),snappedf(l[0][Y],0.01)))
+<<<<<<< Updated upstream
 	
+=======
+		
+		
+>>>>>>> Stashed changes

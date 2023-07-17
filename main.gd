@@ -3,7 +3,8 @@ extends Node
 
 @onready var label_p12 = $Screen/ColorRect/VBoxContainer/label_p12
 @onready var label_p11 = $Screen/ColorRect/VBoxContainer/label_p11
-@onready var space = $"3dspace"
+@onready var space = $"Evironment/3dbox"
+@onready var environment = $Evironment
 
 var console = JavaScriptBridge.get_interface("console")
 
@@ -37,33 +38,27 @@ func cbDrawPoseLandmark(args):
 	for i in range(args[1]):
 		p.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
 		
-
 func cbDrawRightHandLandmark(args):
 	rlen = args[1]
 	r.clear()
 	for i in range(args[1]):
 		r.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
-	#print(r)
 
 func cbDrawLeftHandLandmark(args):
 	llen = args[1]
 	l.clear()
 	for i in range(args[1]):
 		l.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
-	#print(l)
-		
 
 func cbDrawFaceLandmark(args):
 	flen = args[1]
 	f.clear()
 	for i in range(args[1]):
 		f.append([args[0][i][0],args[0][i][1],args[0][i][2],args[0][i][3]])
-	#print(f)
-	
 
 func pos(x,y,z):
-	var rpos = Vector3((x*space.size.x)+(space.position.x-space.size.x/2),((1-y)*space.size.y)-(space.position.y+space.size.y/2),3)
-	rpos = Vector3(rd(rpos.x),rd(rpos.y),rd(rpos.z))
+	var rpos = Vector3((x*space.size.x)+(space.position.x-space.size.x/2),((1-y)*space.size.y)-(space.position.y+space.size.y/2),((1-z)*0.5)*5-(space.position.z+space.size.z/2))
+	print(rpos.z)
 	return rpos
 	
 func rd(v):
@@ -92,223 +87,137 @@ func _ready():
 		# Third argument is optional userdata, it can be any variable.
 		console.log("-Ready-")
 		
-		for i in range(1):
+		for i in range(69):
 			var poly = CSGPolygon3D.new()
 			var path = Path3D.new()
 			var curve = Curve3D.new()
-			space.add_child(path)
-			space.add_child(poly)
+			var mat = StandardMaterial3D.new()
+			environment.add_child(path)
+			environment.add_child(poly)
 			poly.polygon=PackedVector2Array([Vector2(0, 0), Vector2(0, 0.2), Vector2(0.2, 0.2), Vector2(0.2, 0)])
+			#mat.albedo_color=Color(0.,1.,0.)
+			poly.material=mat
+			poly.material.albedo_color=Color(0.,1.,0.)
+			poly.material.emission_enabled=true
+			poly.material.emission=Color(0.,0.5,0.)
+
 			poly.mode=CSGPolygon3D.MODE_PATH
 			poly.path_rotation=CSGPolygon3D.PATH_ROTATION_PATH
 			poly.path_node=path.get_path()
 			path.curve = curve
 			
 			path.curve.add_point(pos(0.0,0.0,0))
-			path.curve.add_point(pos(1.0,1.0,0))
+			path.curve.add_point(pos(0.0,0.0,0))
 			
-			linelist.append(path)
+			linelist.append(poly)
+			#linelist.append(path)
 
 	else:
-		$Screen.visible=false
-		$Label.text="WORKS ONLY ON WEB!"
+		pass
 			
 			
 	
 func _process(delta):
 	if OS.has_feature('web'):
-		$Screen/screenres.text=str(DisplayServer.window_get_size())
-		const X=0
-		const Y=1
-		const Z=2
+		label_p11.text = "p11: "+str(rd(p[11][0]))+" "+str(rd(p[11][1]))+" "+str(rd(p[11][2]))
+		label_p12.text = "p12: "+str(rd(p[12][0]))+" "+str(rd(p[12][1]))+" "+str(rd(p[12][2]))
+		draw3dlines()
 		
-		label_p11.text = "p11: "+str(rd(p[11][X]))+" "+str(rd(p[11][Y]))+" "+str(rd(p[11][Z]))
-		label_p12.text = "p12: "+str(rd(p[12][X]))+" "+str(rd(p[12][Y]))+" "+str(rd(p[12][Z]))
-		
-
-		linelist[0].curve.set_point_position(1,pos(rd(p[11][X]),rd(p[11][Y]),rd(p[11][Z])))
-		linelist[0].curve.set_point_position(0,pos(rd(p[12][X]),rd(p[12][Y]),rd(p[11][Z])))
-		print(linelist[0].curve.get_point_tilt(1)," ",linelist[0].curve.get_point_tilt(0))
-		
-		"
-func draw2dlines():
-	const X=0
-	const Y=1
-	const Z=2
+func update3dline(i,p1,p2,w=0.2):
+	linelist[i].polygon=PackedVector2Array([Vector2(0, 0), Vector2(0, w), Vector2(w, w), Vector2(w, 0)])
+	get_node(linelist[i].path_node).curve.set_point_position(0,pos(rd(p1[0]),rd(p1[1]),rd(p1[2])))
+	get_node(linelist[i].path_node).curve.set_point_position(1,pos(rd(p2[0]),rd(p2[1]),rd(p2[2])))
 	
-	linelist[0].set_point_position(0,pos(rd(p[11][X]),rd(p[11][Y])))
-	linelist[0].set_point_position(1,pos(rd(p[12][X]),rd(p[12][Y])))
-	linelist[1].set_point_position(0,pos(rd(p[11][X]),rd(p[11][Y])))
-	linelist[1].set_point_position(1,pos(rd(p[13][X]),rd(p[13][Y])))
-	linelist[2].set_point_position(0,pos(rd(p[12][X]),rd(p[12][Y])))
-	linelist[2].set_point_position(1,pos(rd(p[14][X]),rd(p[14][Y])))
-	linelist[3].set_point_position(0,pos(rd(p[13][X]),rd(p[13][Y])))
-	linelist[3].set_point_position(1,pos(rd(l[0][X]),rd(l[0][Y])))
-	linelist[4].set_point_position(0,pos(rd(p[14][X]),rd(p[14][Y])))
-	linelist[4].set_point_position(1,pos(rd(r[0][X]),rd(r[0][Y])))
-	linelist[5].set_point_position(0,pos(rd(p[11][X]),rd(p[11][Y])))
-	linelist[5].set_point_position(1,pos(rd(p[23][X]),rd(p[23][Y])))
-	linelist[6].set_point_position(0,pos(rd(p[12][X]),rd(p[12][Y])))
-	linelist[6].set_point_position(1,pos(rd(p[24][X]),rd(p[24][Y])))
-	linelist[7].set_point_position(0,pos(rd(p[23][X]),rd(p[23][Y])))
-	linelist[7].set_point_position(1,pos(rd(p[24][X]),rd(p[24][Y])))
+func draw3dlines():
+	### BODY
+	update3dline(0,p[11],p[12])
+	update3dline(1,p[11],p[13])
+	update3dline(2,p[12],p[14])
+	update3dline(3,p[13],l[0])
+	update3dline(4,p[14],r[0])
+	update3dline(5,p[11],p[23])
+	update3dline(6,p[12],p[24])
+	update3dline(7,p[23],p[24])
 	
 	### RIGHT HAND
 	## FINGER 1
-	linelist[8].set_point_position(0,pos(rd(r[0][X]),rd(r[0][Y])))
-	linelist[8].set_point_position(1,pos(rd(r[1][X]),rd(r[1][Y])))
-	linelist[9].set_point_position(0,pos(rd(r[1][X]),rd(r[1][Y])))
-	linelist[9].set_point_position(1,pos(rd(r[2][X]),rd(r[2][Y])))
-	linelist[10].set_point_position(0,pos(rd(r[2][X]),rd(r[2][Y])))
-	linelist[10].set_point_position(1,pos(rd(r[3][X]),rd(r[3][Y])))
-	linelist[11].set_point_position(0,pos(rd(r[3][X]),rd(r[3][Y])))
-	linelist[11].set_point_position(1,pos(rd(r[4][X]),rd(r[4][Y])))
+	update3dline(8,r[0],r[1],0.05)
+	update3dline(9,r[1],r[2],0.05)
+	update3dline(10,r[2],r[3],0.05)
+	update3dline(11,r[3],r[4],0.05)
 	## FINGER 2
-	linelist[12].set_point_position(0,pos(rd(r[0][X]),rd(r[0][Y])))
-	linelist[12].set_point_position(1,pos(rd(r[5][X]),rd(r[5][Y])))
-	linelist[13].set_point_position(0,pos(rd(r[5][X]),rd(r[5][Y])))
-	linelist[13].set_point_position(1,pos(rd(r[6][X]),rd(r[6][Y])))
-	linelist[14].set_point_position(0,pos(rd(r[6][X]),rd(r[6][Y])))
-	linelist[14].set_point_position(1,pos(rd(r[7][X]),rd(r[7][Y])))
-	linelist[15].set_point_position(0,pos(rd(r[7][X]),rd(r[7][Y])))
-	linelist[15].set_point_position(1,pos(rd(r[8][X]),rd(r[8][Y])))
+	update3dline(12,r[0],r[5],0.05)
+	update3dline(13,r[5],r[6],0.05)
+	update3dline(14,r[6],r[7],0.05)
+	update3dline(15,r[7],r[8],0.05)
 	## FINGER 3
-	linelist[16].set_point_position(0,pos(rd(r[5][X]),rd(r[5][Y])))
-	linelist[16].set_point_position(1,pos(rd(r[9][X]),rd(r[9][Y])))
-	linelist[17].set_point_position(0,pos(rd(r[9][X]),rd(r[9][Y])))
-	linelist[17].set_point_position(1,pos(rd(r[10][X]),rd(r[10][Y])))
-	linelist[18].set_point_position(0,pos(rd(r[10][X]),rd(r[10][Y])))
-	linelist[18].set_point_position(1,pos(rd(r[11][X]),rd(r[11][Y])))
-	linelist[19].set_point_position(0,pos(rd(r[11][X]),rd(r[11][Y])))
-	linelist[19].set_point_position(1,pos(rd(r[12][X]),rd(r[12][Y])))
+	update3dline(16,r[5],r[9],0.05)
+	update3dline(17,r[9],r[10],0.05)
+	update3dline(18,r[10],r[11],0.05)
+	update3dline(19,r[11],r[12],0.05)
 	## FINGER 4
-	linelist[20].set_point_position(0,pos(rd(r[9][X]),rd(r[9][Y])))
-	linelist[20].set_point_position(1,pos(rd(r[13][X]),rd(r[13][Y])))
-	linelist[21].set_point_position(0,pos(rd(r[13][X]),rd(r[13][Y])))
-	linelist[21].set_point_position(1,pos(rd(r[14][X]),rd(r[14][Y])))
-	linelist[22].set_point_position(0,pos(rd(r[14][X]),rd(r[14][Y])))
-	linelist[22].set_point_position(1,pos(rd(r[15][X]),rd(r[15][Y])))
-	linelist[23].set_point_position(0,pos(rd(r[15][X]),rd(r[15][Y])))
-	linelist[23].set_point_position(1,pos(rd(r[16][X]),rd(r[16][Y])))
+	update3dline(20,r[9],r[13],0.05)
+	update3dline(21,r[13],r[14],0.05)
+	update3dline(22,r[14],r[15],0.05)
+	update3dline(23,r[15],r[16],0.05)
 	## FINGER 5
-	linelist[24].set_point_position(0,pos(rd(r[13][X]),rd(r[13][Y])))
-	linelist[24].set_point_position(1,pos(rd(r[17][X]),rd(r[17][Y])))
-	linelist[25].set_point_position(0,pos(rd(r[17][X]),rd(r[17][Y])))
-	linelist[25].set_point_position(1,pos(rd(r[18][X]),rd(r[18][Y])))
-	linelist[26].set_point_position(0,pos(rd(r[18][X]),rd(r[18][Y])))
-	linelist[26].set_point_position(1,pos(rd(r[19][X]),rd(r[19][Y])))
-	linelist[27].set_point_position(0,pos(rd(r[19][X]),rd(r[19][Y])))
-	linelist[27].set_point_position(1,pos(rd(r[20][X]),rd(r[20][Y])))
-	linelist[28].set_point_position(0,pos(rd(r[17][X]),rd(r[17][Y])))
-	linelist[28].set_point_position(1,pos(rd(r[0][X]),rd(r[0][Y])))
-
+	update3dline(24,r[13],r[17],0.05)
+	update3dline(25,r[17],r[18],0.05)
+	update3dline(26,r[18],r[19],0.05)
+	update3dline(27,r[19],r[20],0.05)
+	update3dline(28,r[17],r[0],0.05)
+	
 	### LEFT HAND
 	## FINGER 1
-	linelist[29].set_point_position(0,pos(rd(l[0][X]),rd(l[0][Y])))
-	linelist[29].set_point_position(1,pos(rd(l[1][X]),rd(l[1][Y])))
-	linelist[30].set_point_position(0,pos(rd(l[1][X]),rd(l[1][Y])))
-	linelist[30].set_point_position(1,pos(rd(l[2][X]),rd(l[2][Y])))
-	linelist[31].set_point_position(0,pos(rd(l[2][X]),rd(l[2][Y])))
-	linelist[31].set_point_position(1,pos(rd(l[3][X]),rd(l[3][Y])))
-	linelist[32].set_point_position(0,pos(rd(l[3][X]),rd(l[3][Y])))
-	linelist[32].set_point_position(1,pos(rd(l[4][X]),rd(l[4][Y])))
+	update3dline(29,l[0],l[1],0.05)
+	update3dline(30,l[1],l[2],0.05)
+	update3dline(31,l[2],l[3],0.05)
+	update3dline(32,l[3],l[4],0.05)
 	## FINGER 2
-	linelist[34].set_point_position(0,pos(rd(l[0][X]),rd(l[0][Y])))
-	linelist[34].set_point_position(1,pos(rd(l[5][X]),rd(l[5][Y])))
-	linelist[35].set_point_position(0,pos(rd(l[5][X]),rd(l[5][Y])))
-	linelist[35].set_point_position(1,pos(rd(l[6][X]),rd(l[6][Y])))
-	linelist[36].set_point_position(0,pos(rd(l[6][X]),rd(l[6][Y])))
-	linelist[36].set_point_position(1,pos(rd(l[7][X]),rd(l[7][Y])))
-	linelist[37].set_point_position(0,pos(rd(l[7][X]),rd(l[7][Y])))
-	linelist[37].set_point_position(1,pos(rd(l[8][X]),rd(l[8][Y])))
+	update3dline(33,l[0],l[5],0.05)
+	update3dline(34,l[5],l[6],0.05)
+	update3dline(35,l[6],l[7],0.05)
+	update3dline(36,l[7],l[8],0.05)
 	## FINGER 3
-	linelist[38].set_point_position(0,pos(rd(l[5][X]),rd(l[5][Y])))
-	linelist[38].set_point_position(1,pos(rd(l[9][X]),rd(l[9][Y])))
-	linelist[39].set_point_position(0,pos(rd(l[9][X]),rd(l[9][Y])))
-	linelist[39].set_point_position(1,pos(rd(l[10][X]),rd(l[10][Y])))
-	linelist[40].set_point_position(0,pos(rd(l[10][X]),rd(l[10][Y])))
-	linelist[40].set_point_position(1,pos(rd(l[11][X]),rd(l[11][Y])))
-	linelist[41].set_point_position(0,pos(rd(l[11][X]),rd(l[11][Y])))
-	linelist[41].set_point_position(1,pos(rd(l[12][X]),rd(l[12][Y])))
+	update3dline(37,l[5],l[9],0.05)
+	update3dline(38,l[9],l[10],0.05)
+	update3dline(39,l[10],l[11],0.05)
+	update3dline(40,l[11],l[12],0.05)
 	## FINGER 4
-	linelist[42].set_point_position(0,pos(rd(l[9][X]),rd(l[9][Y])))
-	linelist[42].set_point_position(1,pos(rd(l[13][X]),rd(l[13][Y])))
-	linelist[43].set_point_position(0,pos(rd(l[13][X]),rd(l[13][Y])))
-	linelist[43].set_point_position(1,pos(rd(l[14][X]),rd(l[14][Y])))
-	linelist[44].set_point_position(0,pos(rd(l[14][X]),rd(l[14][Y])))
-	linelist[44].set_point_position(1,pos(rd(l[15][X]),rd(l[15][Y])))
-	linelist[45].set_point_position(0,pos(rd(l[15][X]),rd(l[15][Y])))
-	linelist[45].set_point_position(1,pos(rd(l[16][X]),rd(l[16][Y])))
+	update3dline(41,l[9],l[13],0.05)
+	update3dline(42,l[13],l[14],0.05)
+	update3dline(43,l[14],l[15],0.05)
+	update3dline(44,l[15],l[16],0.05)
 	## FINGER 5
-	linelist[46].set_point_position(0,pos(rd(l[13][X]),rd(l[13][Y])))
-	linelist[46].set_point_position(1,pos(rd(l[17][X]),rd(l[17][Y])))
-	linelist[47].set_point_position(0,pos(rd(l[17][X]),rd(l[17][Y])))
-	linelist[47].set_point_position(1,pos(rd(l[18][X]),rd(l[18][Y])))
-	linelist[48].set_point_position(0,pos(rd(l[18][X]),rd(l[18][Y])))
-	linelist[48].set_point_position(1,pos(rd(l[19][X]),rd(l[19][Y])))
-	linelist[49].set_point_position(0,pos(rd(l[19][X]),rd(l[19][Y])))
-	linelist[49].set_point_position(1,pos(rd(l[20][X]),rd(l[20][Y])))
-	linelist[50].set_point_position(0,pos(rd(l[17][X]),rd(l[17][Y])))
-	linelist[50].set_point_position(1,pos(rd(l[0][X]),rd(l[0][Y])))
+	update3dline(45,l[13],l[17],0.05)
+	update3dline(46,l[17],l[18],0.05)
+	update3dline(47,l[18],l[19],0.05)
+	update3dline(48,l[19],l[20],0.05)
+	update3dline(49,l[17],l[0],0.05)
+	
 	
 	### FACE
 	## STROKE
-	linelist[51].set_point_position(0,pos(rd(f[152][X]),rd(f[152][Y])))
-	linelist[51].set_point_position(1,pos(rd(f[150][X]),rd(f[150][Y])))
-	linelist[52].set_point_position(0,pos(rd(f[150][X]),rd(f[150][Y])))
-	linelist[52].set_point_position(1,pos(rd(f[127][X]),rd(f[127][Y])))
-	linelist[53].set_point_position(0,pos(rd(f[127][X]),rd(f[127][Y])))
-	linelist[53].set_point_position(1,pos(rd(f[10][X]),rd(f[10][Y])))
-	linelist[54].set_point_position(0,pos(rd(f[10][X]),rd(f[10][Y])))
-	linelist[54].set_point_position(1,pos(rd(f[356][X]),rd(f[356][Y])))
-	linelist[55].set_point_position(0,pos(rd(f[356][X]),rd(f[356][Y])))
-	linelist[55].set_point_position(1,pos(rd(f[379][X]),rd(f[379][Y])))
-	linelist[56].set_point_position(0,pos(rd(f[379][X]),rd(f[379][Y])))
-	linelist[56].set_point_position(1,pos(rd(f[152][X]),rd(f[152][Y])))
-	
+	update3dline(50,f[152],f[150],0.1)
+	update3dline(51,f[150],f[127],0.1)
+	update3dline(52,f[127],f[10],0.1)
+	update3dline(53,f[10],f[356],0.1)
+	update3dline(54,f[356],f[379],0.1)
+	update3dline(55,f[379],f[152],0.1)
 	## LIPS
-	linelist[57].width = 2
-	linelist[58].width = 2
-	linelist[59].width = 2
-	linelist[60].width = 2
-	linelist[57].set_point_position(0,pos(rd(f[78][X]),rd(f[78][Y])))
-	linelist[57].set_point_position(1,pos(rd(f[13][X]),rd(f[13][Y])))
-	linelist[58].set_point_position(0,pos(rd(f[13][X]),rd(f[13][Y])))
-	linelist[58].set_point_position(1,pos(rd(f[308][X]),rd(f[308][Y])))
-	linelist[59].set_point_position(0,pos(rd(f[308][X]),rd(f[308][Y])))
-	linelist[59].set_point_position(1,pos(rd(f[14][X]),rd(f[14][Y])))
-	linelist[60].set_point_position(0,pos(rd(f[14][X]),rd(f[14][Y])))
-	linelist[60].set_point_position(1,pos(rd(f[78][X]),rd(f[78][Y])))
-	
+	update3dline(56,f[78],f[13],0.05)
+	update3dline(57,f[13],f[308],0.05)
+	update3dline(58,f[308],f[14],0.05)
+	update3dline(59,f[14],f[78],0.05)	
 	## RIGHT EYE
-	linelist[61].width = 2
-	linelist[62].width = 2
-	linelist[63].width = 2
-	linelist[64].width = 2
-	linelist[61].set_point_position(0,pos(rd(f[33][X]),rd(f[33][Y])))
-	linelist[61].set_point_position(1,pos(rd(f[159][X]),rd(f[159][Y])))
-	linelist[62].set_point_position(0,pos(rd(f[159][X]),rd(f[159][Y])))
-	linelist[62].set_point_position(1,pos(rd(f[133][X]),rd(f[133][Y])))
-	linelist[63].set_point_position(0,pos(rd(f[133][X]),rd(f[133][Y])))
-	linelist[63].set_point_position(1,pos(rd(f[145][X]),rd(f[145][Y])))
-	linelist[64].set_point_position(0,pos(rd(f[145][X]),rd(f[145][Y])))
-	linelist[64].set_point_position(1,pos(rd(f[33][X]),rd(f[33][Y])))
-	
+	update3dline(60,f[33],f[159],0.05)
+	update3dline(61,f[159],f[133],0.05)
+	update3dline(62,f[133],f[145],0.05)
+	update3dline(63,f[145],f[33],0.05)	
 	## LEFT EYE
-	linelist[65].width = 2
-	linelist[66].width = 2
-	linelist[67].width = 2
-	linelist[68].width = 2
-	linelist[65].set_point_position(0,pos(rd(f[362][X]),rd(f[362][Y])))
-	linelist[65].set_point_position(1,pos(rd(f[386][X]),rd(f[386][Y])))
-	linelist[66].set_point_position(0,pos(rd(f[386][X]),rd(f[386][Y])))
-	linelist[66].set_point_position(1,pos(rd(f[263][X]),rd(f[263][Y])))
-	linelist[67].set_point_position(0,pos(rd(f[263][X]),rd(f[263][Y])))
-	linelist[67].set_point_position(1,pos(rd(f[374][X]),rd(f[374][Y])))
-	linelist[68].set_point_position(0,pos(rd(f[374][X]),rd(f[374][Y])))
-	linelist[68].set_point_position(1,pos(rd(f[362][X]),rd(f[362][Y])))
-	
+	update3dline(64,f[362],f[386],0.05)
+	update3dline(65,f[386],f[263],0.05)
+	update3dline(66,f[263],f[374],0.05)
+	update3dline(67,f[374],f[362],0.05)	
 	## NOSE
-	linelist[69].set_point_position(0,pos(rd(f[4][X]),rd(f[4][Y])))
-	linelist[69].set_point_position(1,pos(rd(f[6][X]),rd(f[6][Y])))
-"
+	update3dline(68,f[4],f[6],0.05)

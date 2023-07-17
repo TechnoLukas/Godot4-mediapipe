@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b62gevg67wdiq"]
+[gd_scene load_steps=13 format=3 uid="uid://b62gevg67wdiq"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_y2ade"]
 [ext_resource type="Texture2D" uid="uid://cnjkyebvkpmcw" path="res://resources/images/Image20230715225729.png" id="2_155a5"]
@@ -6,21 +6,47 @@
 [ext_resource type="Texture2D" uid="uid://dh2hva6pssyh4" path="res://resources/images/Image20230716134510.jpg" id="4_02ff4"]
 [ext_resource type="Script" path="res://3dview.gd" id="5_35q1o"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_doy0q"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2h5r"]
+bg_color = Color(0.407843, 0.407843, 0.407843, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jw7o1"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chn4x"]
+bg_color = Color(0.407843, 0.407843, 0.407843, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ee0pp"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvu6p"]
 transparency = 1
+blend_mode = 1
 cull_mode = 1
-albedo_color = Color(0.737255, 0.796078, 0.862745, 0.811765)
-
-[sub_resource type="Curve3D" id="Curve3D_1m0yp"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.3065, 1.49078, -1.6858, 0, 0, 0, 0, 0, 0, -0.635875, 1.71721, -3.84885, 0, 0, 0, 0, 0, 0, 2.18052, -0.429692, -3.47252, 0, 0, 0, 0, 0, 0, 2.27914, -1.49895, -0.423533, 0, 0, 0, 0, 0, 0, -0.184406, -0.744181, 2.67727),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
+albedo_color = Color(0.564706, 0.843137, 0.894118, 0.811765)
 
 [sub_resource type="Environment" id="Environment_jlo5d"]
 background_mode = 1
-background_color = Color(0.701961, 0.701961, 0.701961, 1)
+background_color = Color(0.160784, 0.160784, 0.160784, 1)
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_y2ade")
@@ -100,20 +126,6 @@ theme_override_font_sizes/font_size = 30
 text = "p11: "
 vertical_alignment = 1
 
-[node name="screenres" type="Label" parent="Screen"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1128.0
-offset_top = -46.0
-offset_right = -953.0
-offset_bottom = -15.0
-grow_horizontal = 0
-grow_vertical = 0
-
 [node name="TextureRect" type="TextureRect" parent="Screen"]
 layout_mode = 1
 anchors_preset = 3
@@ -171,46 +183,172 @@ grow_horizontal = 0
 grow_vertical = 0
 color = Color(0.117647, 0.117647, 0.117647, 1)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Screen"]
+[node name="ColorRect2" type="ColorRect" parent="Screen"]
+layout_mode = 2
+offset_left = 260.0
+offset_top = 70.0
+offset_right = 700.0
+offset_bottom = 510.0
+color = Color(0.282353, 0.282353, 0.282353, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Screen/ColorRect2"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -892.0
-offset_top = -578.0
-offset_right = 1108.0
-offset_bottom = 1422.0
+offset_left = -440.0
+offset_top = -440.0
+offset_right = 1560.0
+offset_bottom = 1560.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.22, 0.22)
 
-[node name="SubViewport" type="SubViewport" parent="Screen/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="Screen/ColorRect2/SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(2000, 2000)
 render_target_update_mode = 4
 
-[node name="Marker3D" type="Marker3D" parent="Screen/SubViewportContainer/SubViewport"]
+[node name="Marker3D" type="Marker3D" parent="Screen/ColorRect2/SubViewportContainer/SubViewport"]
 script = ExtResource("5_35q1o")
 
-[node name="Camera3D" type="Camera3D" parent="Screen/SubViewportContainer/SubViewport/Marker3D"]
+[node name="Camera3D" type="Camera3D" parent="Screen/ColorRect2/SubViewportContainer/SubViewport/Marker3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9)
 size = 10.0
 near = 0.001
 
-[node name="3dspace" type="CSGBox3D" parent="."]
+[node name="Panel" type="Panel" parent="Screen/ColorRect2"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -63.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 137.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_doy0q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screen/ColorRect2/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="cammode" type="Button" parent="Screen/ColorRect2/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_y2h5r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jw7o1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_chn4x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee0pp")
+text = "per"
+
+[node name="camfront" type="Button" parent="Screen/ColorRect2/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_y2h5r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jw7o1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_chn4x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee0pp")
+text = "front"
+
+[node name="camright" type="Button" parent="Screen/ColorRect2/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_y2h5r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jw7o1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_chn4x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee0pp")
+text = "right"
+
+[node name="camleft" type="Button" parent="Screen/ColorRect2/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_y2h5r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jw7o1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_chn4x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ee0pp")
+text = "left"
+
+[node name="Evironment" type="Node3D" parent="."]
+
+[node name="3dbox" type="CSGBox3D" parent="Evironment"]
+visible = false
 size = Vector3(5, 5, 5)
 material = SubResource("StandardMaterial3D_tvu6p")
 
+[node name="frame" type="Node3D" parent="Evironment"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 2.5, 2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 2.5, -2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 2.5, 2.5, 0)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, -2.5, 2.5, 0)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, -2.5, -2.5, 0)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 2.5, -2.5, 0)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -2.5, 2.5)
+size = Vector3(0.3, 5, 0.3)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Evironment/frame"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -2.5, -2.5)
+size = Vector3(0.3, 5, 0.3)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, -0.000438246, 0.000240757, 0.000438357, 1, -0.000461789, -0.000240555, 0.000461894, 1, 0, 0, 0)
 light_energy = 0.233
-
-[node name="Path3D" type="Path3D" parent="."]
-curve = SubResource("Curve3D_1m0yp")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2.5, 2.5)
+sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jlo5d")
+
+[connection signal="pressed" from="Screen/ColorRect2/Panel/VBoxContainer/cammode" to="Screen/ColorRect2/SubViewportContainer/SubViewport/Marker3D" method="_on_cammode_pressed"]
+[connection signal="pressed" from="Screen/ColorRect2/Panel/VBoxContainer/camfront" to="Screen/ColorRect2/SubViewportContainer/SubViewport/Marker3D" method="_on_camfront_pressed"]
+[connection signal="pressed" from="Screen/ColorRect2/Panel/VBoxContainer/camright" to="Screen/ColorRect2/SubViewportContainer/SubViewport/Marker3D" method="_on_camright_pressed"]
+[connection signal="pressed" from="Screen/ColorRect2/Panel/VBoxContainer/camleft" to="Screen/ColorRect2/SubViewportContainer/SubViewport/Marker3D" method="_on_camleft_pressed"]

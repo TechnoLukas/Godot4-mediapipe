@@ -1,0 +1,185 @@
+[gd_scene load_steps=6 format=3 uid="uid://b62gevg67wdiq"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_y2ade"]
+[ext_resource type="Texture2D" uid="uid://cnjkyebvkpmcw" path="res://resources/images/Image20230715225729.png" id="2_155a5"]
+[ext_resource type="Texture2D" uid="uid://c0yt6qp2w5rmx" path="res://resources/images/Image20230715190714.jpg" id="2_doyx3"]
+[ext_resource type="Texture2D" uid="uid://dh2hva6pssyh4" path="res://resources/images/Image20230716134510.jpg" id="4_02ff4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvu6p"]
+transparency = 1
+albedo_color = Color(0.345098, 0.345098, 0.792157, 0.188235)
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_y2ade")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -369.0
+offset_top = -100.0
+offset_right = 369.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Screen"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1143.0
+offset_top = -121.0
+offset_right = -741.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.184314, 0.184314, 0.184314, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screen/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="label_p12" type="Label" parent="Screen/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "p12: "
+vertical_alignment = 1
+
+[node name="label_p11" type="Label" parent="Screen/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "p11: "
+vertical_alignment = 1
+
+[node name="screenres" type="Label" parent="Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1128.0
+offset_top = -46.0
+offset_right = -953.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -424.0
+offset_top = -221.0
+offset_right = -23.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_doyx3")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -425.0
+offset_top = -386.0
+offset_right = -23.0
+offset_bottom = -246.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_155a5")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Screen"]
+layout_mode = 0
+offset_left = 853.0
+offset_top = 21.0
+offset_right = 1032.0
+offset_bottom = 248.0
+texture = ExtResource("4_02ff4")
+expand_mode = 1
+
+[node name="window" type="ColorRect" parent="Screen"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -856.0
+offset_top = -549.0
+offset_right = -439.0
+offset_bottom = -131.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -851.0
+offset_top = -545.0
+offset_right = -451.0
+offset_bottom = -145.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SubViewport" type="SubViewport" parent="Screen/SubViewportContainer"]
+size = Vector2i(400, 400)
+
+[node name="Camera3D" type="Camera3D" parent="Screen/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.919293, 0.393573, 0, -0.393573, 0.919293, -0.005, 2, 3.736)
+
+[node name="3dspace" type="CSGBox3D" parent="."]
+transform = Transform3D(2.143, 0, 0, 0, 2.143, 0, 0, 0, 2.143, 0, 0, 0)
+visible = false
+material = SubResource("StandardMaterial3D_tvu6p")

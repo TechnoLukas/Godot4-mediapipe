@@ -8,7 +8,7 @@ web view
 ![image](https://github.com/TechnoLukas/Godot4-mediapipe/assets/110934679/64bbe48f-107a-4dff-ada0-e34f4e96d416)
 
 
-mediapipe js based on https://github.com/LintangWisesa/MediaPipe-in-JavaScript
+
 
 
 Browsers fps comparison
@@ -22,3 +22,6 @@ Browsers fps comparison
 - Movement smoothing and lerps
 - Real bone controlls
 - visualize html file evolution and callbacks
+
+
+porting mediapipe html page is based on https://github.com/LintangWisesa/MediaPipe-in-JavaScript

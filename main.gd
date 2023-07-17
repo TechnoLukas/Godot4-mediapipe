@@ -110,7 +110,6 @@ func _ready():
 			path.curve.add_point(pos(0.0,0.0,0))
 			
 			linelist.append(poly)
-			#linelist.append(path)
 
 	else:
 		pass
@@ -123,8 +122,10 @@ func _process(delta):
 		label_p12.text = "p12: "+str(rd(p[12][0]))+" "+str(rd(p[12][1]))+" "+str(rd(p[12][2]))
 		draw3dlines()
 		
-func update3dline(i,p1,p2,w=0.2):
+func update3dline(i,p1,p2,w=0.2,c=Color(0.,1.,0.)):
 	linelist[i].polygon=PackedVector2Array([Vector2(0, 0), Vector2(0, w), Vector2(w, w), Vector2(w, 0)])
+	linelist[i].material.albedo_color=c
+	linelist[i].material.emission=Color(c.r/2,c.g/2,c.b/2)
 	get_node(linelist[i].path_node).curve.set_point_position(0,pos(rd(p1[0]),rd(p1[1]),rd(p1[2])))
 	get_node(linelist[i].path_node).curve.set_point_position(1,pos(rd(p2[0]),rd(p2[1]),rd(p2[2])))
 	
@@ -142,57 +143,57 @@ func draw3dlines():
 	### RIGHT HAND
 	## FINGER 1
 	update3dline(8,r[0],r[1],0.05)
-	update3dline(9,r[1],r[2],0.05)
-	update3dline(10,r[2],r[3],0.05)
-	update3dline(11,r[3],r[4],0.05)
+	update3dline(9,r[1],r[2],0.05,Color(0.78,0.78,0.91))
+	update3dline(10,r[2],r[3],0.05,Color(0.78,0.78,0.91))
+	update3dline(11,r[3],r[4],0.05,Color(0.78,0.78,0.91))
 	## FINGER 2
 	update3dline(12,r[0],r[5],0.05)
-	update3dline(13,r[5],r[6],0.05)
-	update3dline(14,r[6],r[7],0.05)
-	update3dline(15,r[7],r[8],0.05)
+	update3dline(13,r[5],r[6],0.05,Color(0.64,0.29,0.64))
+	update3dline(14,r[6],r[7],0.05,Color(0.64,0.29,0.64))
+	update3dline(15,r[7],r[8],0.05,Color(0.64,0.29,0.64))
 	## FINGER 3
 	update3dline(16,r[5],r[9],0.05)
-	update3dline(17,r[9],r[10],0.05)
-	update3dline(18,r[10],r[11],0.05)
-	update3dline(19,r[11],r[12],0.05)
+	update3dline(17,r[9],r[10],0.05,Color(1,0.95,0))
+	update3dline(18,r[10],r[11],0.05,Color(1,0.95,0))
+	update3dline(19,r[11],r[12],0.05,Color(1,0.95,0))
 	## FINGER 4
 	update3dline(20,r[9],r[13],0.05)
-	update3dline(21,r[13],r[14],0.05)
-	update3dline(22,r[14],r[15],0.05)
-	update3dline(23,r[15],r[16],0.05)
+	update3dline(21,r[13],r[14],0.05,Color(0.13,0.69,0.3))
+	update3dline(22,r[14],r[15],0.05,Color(0.13,0.69,0.3))
+	update3dline(23,r[15],r[16],0.05,Color(0.13,0.69,0.3))
 	## FINGER 5
 	update3dline(24,r[13],r[17],0.05)
-	update3dline(25,r[17],r[18],0.05)
-	update3dline(26,r[18],r[19],0.05)
-	update3dline(27,r[19],r[20],0.05)
+	update3dline(25,r[17],r[18],0.05,Color(0.25,0.28,0.8))
+	update3dline(26,r[18],r[19],0.05,Color(0.25,0.28,0.8))
+	update3dline(27,r[19],r[20],0.05,Color(0.25,0.28,0.8))
 	update3dline(28,r[17],r[0],0.05)
 	
 	### LEFT HAND
 	## FINGER 1
 	update3dline(29,l[0],l[1],0.05)
-	update3dline(30,l[1],l[2],0.05)
-	update3dline(31,l[2],l[3],0.05)
-	update3dline(32,l[3],l[4],0.05)
+	update3dline(30,l[1],l[2],0.05,Color(0.78,0.78,0.91))
+	update3dline(31,l[2],l[3],0.05,Color(0.78,0.78,0.91))
+	update3dline(32,l[3],l[4],0.05,Color(0.78,0.78,0.91))
 	## FINGER 2
 	update3dline(33,l[0],l[5],0.05)
-	update3dline(34,l[5],l[6],0.05)
-	update3dline(35,l[6],l[7],0.05)
-	update3dline(36,l[7],l[8],0.05)
+	update3dline(34,l[5],l[6],0.05,Color(0.64,0.29,0.64))
+	update3dline(35,l[6],l[7],0.05,Color(0.64,0.29,0.64))
+	update3dline(36,l[7],l[8],0.05,Color(0.64,0.29,0.64))
 	## FINGER 3
 	update3dline(37,l[5],l[9],0.05)
-	update3dline(38,l[9],l[10],0.05)
-	update3dline(39,l[10],l[11],0.05)
-	update3dline(40,l[11],l[12],0.05)
+	update3dline(38,l[9],l[10],0.05,Color(1,0.95,0))
+	update3dline(39,l[10],l[11],0.05,Color(1,0.95,0))
+	update3dline(40,l[11],l[12],0.05,Color(1,0.95,0))
 	## FINGER 4
 	update3dline(41,l[9],l[13],0.05)
-	update3dline(42,l[13],l[14],0.05)
-	update3dline(43,l[14],l[15],0.05)
-	update3dline(44,l[15],l[16],0.05)
+	update3dline(42,l[13],l[14],0.05,Color(0.13,0.69,0.3))
+	update3dline(43,l[14],l[15],0.05,Color(0.13,0.69,0.3))
+	update3dline(44,l[15],l[16],0.05,Color(0.13,0.69,0.3))
 	## FINGER 5
 	update3dline(45,l[13],l[17],0.05)
-	update3dline(46,l[17],l[18],0.05)
-	update3dline(47,l[18],l[19],0.05)
-	update3dline(48,l[19],l[20],0.05)
+	update3dline(46,l[17],l[18],0.05,Color(0.25,0.28,0.8))
+	update3dline(47,l[18],l[19],0.05,Color(0.25,0.28,0.8))
+	update3dline(48,l[19],l[20],0.05,Color(0.25,0.28,0.8))
 	update3dline(49,l[17],l[0],0.05)
 	
 	
@@ -210,14 +211,14 @@ func draw3dlines():
 	update3dline(58,f[308],f[14],0.05)
 	update3dline(59,f[14],f[78],0.05)	
 	## RIGHT EYE
-	update3dline(60,f[33],f[159],0.05)
-	update3dline(61,f[159],f[133],0.05)
-	update3dline(62,f[133],f[145],0.05)
-	update3dline(63,f[145],f[33],0.05)	
+	update3dline(60,f[33],f[159],0.025)
+	update3dline(61,f[159],f[133],0.025)
+	update3dline(62,f[133],f[145],0.025)
+	update3dline(63,f[145],f[33],0.025)	
 	## LEFT EYE
-	update3dline(64,f[362],f[386],0.05)
-	update3dline(65,f[386],f[263],0.05)
-	update3dline(66,f[263],f[374],0.05)
-	update3dline(67,f[374],f[362],0.05)	
+	update3dline(64,f[362],f[386],0.025)
+	update3dline(65,f[386],f[263],0.025)
+	update3dline(66,f[263],f[374],0.025)
+	update3dline(67,f[374],f[362],0.025)	
 	## NOSE
 	update3dline(68,f[4],f[6],0.05)

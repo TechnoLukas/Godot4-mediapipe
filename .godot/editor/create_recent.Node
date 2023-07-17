@@ -1,8 +1,8 @@
+Path3D
+CSGPolygon3D
 Marker3D
 WorldEnvironment
 CSGSphere3D
-Path3D
-CSGPolygon3D
 DirectionalLight3D
 CSGBox3D
 SubViewportContainer

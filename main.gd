@@ -100,6 +100,7 @@ func _ready():
 			space.add_child(poly)
 			poly.polygon=PackedVector2Array([Vector2(0, 0), Vector2(0, 0.2), Vector2(0.2, 0.2), Vector2(0.2, 0)])
 			poly.mode=CSGPolygon3D.MODE_PATH
+			poly.path_rotation=CSGPolygon3D.PATH_ROTATION_PATH
 			poly.path_node=path.get_path()
 			path.curve = curve
 			
@@ -109,21 +110,10 @@ func _ready():
 			linelist.append(path)
 
 	else:
-		for i in range(1):
-			var poly = CSGPolygon3D.new()
-			var path = Path3D.new()
-			var curve = Curve3D.new()
-			space.add_child(path)
-			space.add_child(poly)
-			poly.polygon=PackedVector2Array([Vector2(0, 0), Vector2(0, 0.2), Vector2(0.2, 0.2), Vector2(0.2, 0)])
-			poly.mode=CSGPolygon3D.MODE_PATH
-			poly.path_node=path.get_path()
-			path.curve = curve
+		$Screen.visible=false
+		$Label.text="WORKS ONLY ON WEB!"
 			
-			path.curve.add_point(pos(0.0,0.0,0))
-			path.curve.add_point(pos(1.0,1.0,0))
 			
-			linelist.append(path)
 	
 func _process(delta):
 	if OS.has_feature('web'):

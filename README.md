@@ -10,6 +10,8 @@ web view
 
 mediapipe js based on https://github.com/LintangWisesa/MediaPipe-in-JavaScript
 
+
+Browsers fps comparison
 | Description           | Browser |
 |-----------------------|---------|
 | Microsoft Edge; 18fps |<img width="169" alt="image" src="https://github.com/TechnoLukas/Godot4-mediapipe/assets/110934679/35ccb936-790d-4d57-8188-6b62ecff64c0">|
@@ -17,6 +19,6 @@ mediapipe js based on https://github.com/LintangWisesa/MediaPipe-in-JavaScript
 | Firefox; 10fps        |<img width="169" alt="image" src="https://github.com/TechnoLukas/Godot4-mediapipe/assets/110934679/07ef44aa-a2f3-450d-b616-ef5349cf451e">|
 
 **TODO:**
+- Movement smoothing and lerps
 - Real bone controlls
-- show browser difference
 - visualize html file evolution and callbacks
